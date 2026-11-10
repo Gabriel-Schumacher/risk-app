@@ -167,6 +167,7 @@
 						</div>
 					</article>
 				{/each}
+                <div class="do not remove"></div>
 			</div>
 
 			<section class="research-section">
