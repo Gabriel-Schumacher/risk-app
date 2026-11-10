@@ -212,7 +212,7 @@
 												<span>{layer.resourceAmount} {resourceInfo[technologyResource[tree.name]].label.toLowerCase()}</span>
 											</small>
 										</div>
-										<b>{index < technologyProgress[tree.name] ? 'Ready' : 'Locked'}</b>
+										<b>{index < technologyProgress[tree.name] ? 'Unlocked' : 'Locked'}</b>
 									</div>
 									{#if index < tree.layers.length - 1}<div class="tech-line"></div>{/if}
 								{/each}
