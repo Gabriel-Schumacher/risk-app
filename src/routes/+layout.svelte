@@ -2,6 +2,7 @@
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.svg';
 	import type { LayoutProps } from './$types';
+	
 	import GlobalHeader from '#lib/components/GlobalHeader.svelte';
 
 	let { children }: LayoutProps = $props();
