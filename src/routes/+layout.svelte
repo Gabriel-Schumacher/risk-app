@@ -13,7 +13,12 @@
 </svelte:head>
 
 <GlobalHeader />
-<div class="p-2 flex flex-col items-center gap-2 w-full">
+<div class="flex flex-col items-center gap-2 w-full mapImage p-2">
 {@render children()}	
 </div>
 
+<style>
+	.mapImage {
+		background-image: url('/src/lib/assets/map.jpg');
+	}
+</style>

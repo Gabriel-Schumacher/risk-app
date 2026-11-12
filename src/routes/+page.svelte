@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import TechCard from '#lib/components/TechCard.svelte';
+	import { resourceInfo } from '#lib/data/icon.ts';
 
 	type Resource = 'brick' | 'wood' | 'sheep' | 'wheat' | 'ore';
 
@@ -11,16 +12,6 @@
 		armies: number;
 	};
 
-	const resourceInfo: Record<
-		Resource,
-		{ label: string; icon: string; tone: string; color: string }
-	> = {
-		brick: { label: 'Brick', icon: '◆', tone: 'brick', color: '#8C1A00' },
-		wood: { label: 'Lumber', icon: '✦', tone: 'wood', color: '#8C6044' },
-		sheep: { label: 'Wool', icon: '✺', tone: 'sheep', color: '#ffffff' },
-		wheat: { label: 'Wheat', icon: '✤', tone: 'wheat', color: '#FFD700' },
-		ore: { label: 'Ore', icon: '⬡', tone: 'ore', color: '#808080' }
-	};
 	const technologyTrees = [
 		{
 			name: 'Economy' as const,
@@ -136,7 +127,7 @@
 	/>
 </svelte:head>
 
-<main class="app-shell mx-auto max-w-7xl px-4 py-6 text-black sm:px-8 lg:px-11">
+<div class="mx-auto max-w-7xl px-2 py-6 text-black sm:px-8 lg:px-11">
 	<header class="topbar flex items-center justify-between border-b border-[#d5d0c5] pb-7">
 		<div class="brand flex items-center gap-3">
 			<div>
@@ -229,12 +220,12 @@
 			</section>
 		</section>
 	</div>
-</main>
+</div>
 
 <style>
-	main {
+	/* main {
 		background-image: url('/src/lib/assets/map.jpg');
-	}
+	} */
 	.marbleImage {
 		background-image: url('/src/lib/assets/ymarble.jpg');
 	}

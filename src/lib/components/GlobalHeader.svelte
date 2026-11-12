@@ -1,8 +1,10 @@
 <script lang="ts">
 	let winner = $state<string | null>(null);
+	import BuildBuilding from '#lib/components/BuildBuilding.svelte';
+	import BuildPeople from '#lib/components/BuildPeople.svelte';
 </script>
 
-<div class="flex w-full flex-col gap-2 p-2">
+<div class="flex w-full flex-col gap-2 bg-none p-2">
 	<ul class="flex items-center justify-between gap-2 pt-2">
 		<li class="flex h-6 w-auto items-center gap-2">
 			<div class="background-white rounded-full border-2 p-2"></div>
@@ -15,12 +17,7 @@
 		<div class="flex items-center gap-4">
 			<a href="/">
 				<li class="flex h-7 w-7 items-center">
-					<svg
-						class="h-6 w-6"
-						fill="white
-                "
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 640 512"
+					<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
 						><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path
 							d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-384c0-35.3-28.7-64-64-64L64 0zM176 352l32 0c17.7 0 32 14.3 32 32l0 80-96 0 0-80c0-17.7 14.3-32 32-32zM96 112c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zM240 96l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM96 240c0-8.8 7.2-16 16-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32zm144-16l32 0c8.8 0 16 7.2 16 16l0 32c0 8.8-7.2 16-16 16l-32 0c-8.8 0-16-7.2-16-16l0-32c0-8.8 7.2-16 16-16zM464 0c-17.7 0-32 14.3-32 32l0 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-288 112 0c17.7 0 32-14.3 32-32l0-96c0-17.7-14.3-32-32-32L496 32c0-17.7-14.3-32-32-32z"
 						/></svg
@@ -29,36 +26,59 @@
 			</a>
 			<a href="/rules/">
 				<li class="h-6 w-6">
-					<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+					<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
 						><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path
-							d="M169.6 153.4l-18.7-18.7c-12.5-12.5-12.5-32.8 0-45.3L265.6-25.4c12.5-12.5 32.8-12.5 45.3 0L329.6-6.6c12.5 12.5 12.5 32.8 0 45.3L214.9 153.4c-12.5 12.5-32.8 12.5-45.3 0zM276 211.7l-31.4-31.4 112-112 119.4 119.4-112 112-31.4-31.4-232 232c-15.6 15.6-40.9 15.6-56.6 0s-15.6-40.9 0-56.6l232-232zM390.9 374.6c-12.5-12.5-12.5-32.8 0-45.3L505.6 214.6c12.5-12.5 32.8-12.5 45.3 0l18.7 18.7c12.5 12.5 12.5 32.8 0 45.3L454.9 393.4c-12.5 12.5-32.8 12.5-45.3 0l-18.7-18.7z"
+							d="M96 512l320 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l0-66.7c18.6-6.6 32-24.4 32-45.3l0-288c0-26.5-21.5-48-48-48l-48 0 0 169.4c0 12.5-10.1 22.6-22.6 22.6-6 0-11.8-2.4-16-6.6L272 144 230.6 185.4c-4.2 4.2-10 6.6-16 6.6-12.5 0-22.6-10.1-22.6-22.6L192 0 96 0C43 0 0 43 0 96L0 416c0 53 43 96 96 96zM64 416c0-17.7 14.3-32 32-32l256 0 0 64-256 0c-17.7 0-32-14.3-32-32z"
 						/></svg
 					>
 				</li>
 			</a>
-
 			<button
-				class="m-1 flex h-6 w-6 items-center justify-center btn-ghost bg-none"
+				class="m-1 flex h-8 w-8 items-center justify-center btn-ghost bg-none border-2 border-white rounded-full"
 				onclick={() => document.querySelector<HTMLDialogElement>('#my_modal_1')?.showModal()}
 			>
-				<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+				<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
 					><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path
-						d="M351.9 280l-190.9 0c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zM160.9 232l190.9 0C349 167.5 334.7 108.1 314.4 64.6 303 40.2 290.7 22.8 279.3 12.2 268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4zm-48 0C116.4 146.4 138.5 66.9 170.8 14.7 78.7 47.3 10.9 131.2 1.5 232l111.4 0zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3L1.5 280zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3l-111.4 0zm111.4-48C501.9 131.2 434.1 47.3 342 14.7 374.3 66.9 396.4 146.4 399.9 232l111.4 0z"
+						d="M246.9 18.3L271 3.8c21.6-13 46.3-19.8 71.5-19.8 36.8 0 72.2 14.6 98.2 40.7l63.9 63.9c15 15 23.4 35.4 23.4 56.6l0 30.9 19.7 19.7 0 0c15.6-15.6 40.9-15.6 56.6 0s15.6 40.9 0 56.6l-64 64c-15.6 15.6-40.9 15.6-56.6 0s-15.6-40.9 0-56.6L464 240 433.1 240c-21.2 0-41.6-8.4-56.6-23.4l-49.1-49.1c-15-15-23.4-35.4-23.4-56.6l0-12.7c0-11.2-5.9-21.7-15.5-27.4l-41.6-25c-10.4-6.2-10.4-21.2 0-27.4zM50.7 402.7l222.1-222.1 90.5 90.5-222.1 222.1c-25 25-65.5 25-90.5 0s-25-65.5 0-90.5z"
 					/></svg
 				>
 			</button>
 			<dialog id="my_modal_1" class="modal font-bold text-black">
-				<div class="marbleImage modal-box">
-					<h3 class="text-lg font-bold">Leader Board</h3>
-					<p class="py-4 text-shadow-accent">
-						This is where players are going to be able to see the leader board.
-					</p>
-					<div class="modal-action">
-						<form method="dialog">
-							<!-- if there is a button in form, it will close the modal -->
-							<button class="btn">Close</button>
-						</form>
+				<div class="parchmentImage modal-box">
+					<div class="flex items-center justify-between">
+						<h3 class="text-lg font-bold">Build Orders</h3>
+						<div class="modal-action">
+							<form method="dialog">
+								<!-- if there is a button in form, it will close the modal -->
+								<button class="btn">Close</button>
+							</form>
+						</div>
 					</div>
+					<BuildBuilding />
+				</div>
+			</dialog>
+			<button
+				class="m-1 flex h-8 w-8 items-center justify-center btn-ghost bg-none border-2 border-white rounded-full"
+				onclick={() => document.querySelector<HTMLDialogElement>('#my_modal_2')?.showModal()}
+			>
+				<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+					><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path
+						d="M248 24a56 56 0 1 0 -112 0 56 56 0 1 0 112 0zm24 212.7l46.3 62.4c10.5 14.2 30.6 17.2 44.8 6.6s17.2-30.6 6.6-44.8l-70.5-95C274 132 234.3 112 192 112s-82 20-107.2 53.9l-70.5 95c-10.5 14.2-7.6 34.2 6.6 44.8s34.2 7.6 44.8-6.6L112 236.7 112 512c0 17.7 14.3 32 32 32s32-14.3 32-32l0-160c0-8.8 7.2-16 16-16s16 7.2 16 16l0 160c0 17.7 14.3 32 32 32s32-14.3 32-32l0-275.3z"
+					/></svg
+				>
+			</button>
+			<dialog id="my_modal_2" class="modal font-bold text-black">
+				<div class="parchmentImage modal-box">
+					<div class="flex items-center justify-between">
+						<h3 class="text-lg font-bold">Build Orders</h3>
+						<div class="modal-action">
+							<form method="dialog">
+								<!-- if there is a button in form, it will close the modal -->
+								<button class="btn">Close</button>
+							</form>
+						</div>
+					</div>
+					<BuildPeople />
 				</div>
 			</dialog>
 		</div>
@@ -66,7 +86,7 @@
 </div>
 
 <style>
-	.marbleImage {
-		background-image: url('../assets/marble.jpg');
+	.parchmentImage {
+		background-image: url('../assets/parchment.jpg');
 	}
 </style>
