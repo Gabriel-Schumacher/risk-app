@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import TechCard from '#lib/components/TechCard.svelte'
+	import TechCard from '#lib/components/TechCard.svelte';
 
 	type Resource = 'brick' | 'wood' | 'sheep' | 'wheat' | 'ore';
 
@@ -11,7 +11,10 @@
 		armies: number;
 	};
 
-	const resourceInfo: Record<Resource, { label: string; icon: string; tone: string; color: string }> = {
+	const resourceInfo: Record<
+		Resource,
+		{ label: string; icon: string; tone: string; color: string }
+	> = {
 		brick: { label: 'Brick', icon: '◆', tone: 'brick', color: '#8C1A00' },
 		wood: { label: 'Lumber', icon: '✦', tone: 'wood', color: '#8C6044' },
 		sheep: { label: 'Wool', icon: '✤', tone: 'sheep', color: '#ffffff' },
@@ -133,67 +136,79 @@
 	/>
 </svelte:head>
 
-<main class="app-shell mx-auto max-w-7xl px-4 py-6 sm:px-8 lg:px-11">
+<main class="app-shell mx-auto max-w-7xl px-4 py-6 text-black sm:px-8 lg:px-11">
 	<header class="topbar flex items-center justify-between border-b border-[#d5d0c5] pb-7">
 		<div class="brand flex items-center gap-3">
 			<div>
-				<p class="eyebrow eyebrow accent">Nation tracker</p>
+				<p class="text-xl font-bold text-white">Nation tracker</p>
 			</div>
 		</div>
 		<div class="game-meta flex items-center gap-5 sm:gap-8">
-        <div></div>
-			<div class="save-state">{saved ? '✓ Saved locally' : '● Autosave on'}</div>
-			<button class="icon-button" aria-label="Reset game" onclick={resetGame}>↻</button>
+			<div></div>
+			<div class="save-state text-white">{saved ? '✓ Saved locally' : '● Autosave on'}</div>
+			<button class="text-white" aria-label="Reset game" onclick={resetGame}>↻</button>
 		</div>
 	</header>
 
 	<div class="layout grid gap-10 lg:grid-cols-[minmax(0,1fr)_315px]">
-		<section class="main-column">
-			<div class="p-2 section-heading flex items-center justify-between">
-				<div><p class="eyebrow">Your ledger</p><h3>Resources</h3></div>
-				<span class="hint">Income per production building</span>
-			</div>
-			<div class="flex flex-col gap-2 parchmentImage">
+		<section>
+			<h3 class="py-2 text-xl font-bold text-white">Resources</h3>
+			<div class="parchmentImage flex flex-col gap-2">
 				{#each Object.entries(resourceInfo) as [key, info]}
 					{@const resource = key as Resource}
 					<article class={`flex justify-between gap-4 ${info.tone} p-3 px-4`}>
 						<div class="flex items-center gap-2">
-							<span class="resource-icon border-2 rounded-full w-5 h-5 flex items-center justify-center" style={`border-color: ${info.color}; background-color: ${info.color}`}>{info.icon}</span>
+							<span
+								class="resource-icon flex h-5 w-5 items-center justify-center rounded-full border-2"
+								style={`border-color: ${info.color}; background-color: ${info.color}`}
+								>{info.icon}</span
+							>
 							<span class="resource-label">{info.label}</span>
 						</div>
 						<div class="flex items-center gap-4">
 							<strong>{resources[resource]}</strong>
 							<div class="flex items-center gap-2">
-								<button class="w-8 h-8 p-2 flex items-center justify-center border" aria-label={`Remove one ${info.label}`} onclick={() => changeResource(resource, -1)}>−</button>
-								<button class="w-8 h-8 p-2 flex items-center justify-center border" aria-label={`Add one ${info.label}`} onclick={() => changeResource(resource, 1)}>+</button>
+								<button
+									class="flex h-8 w-8 items-center justify-center border p-2"
+									aria-label={`Remove one ${info.label}`}
+									onclick={() => changeResource(resource, -1)}>−</button
+								>
+								<button
+									class="flex h-8 w-8 items-center justify-center border p-2"
+									aria-label={`Add one ${info.label}`}
+									onclick={() => changeResource(resource, 1)}>+</button
+								>
 							</div>
 						</div>
 					</article>
 				{/each}
-                <div class="do not remove"></div>
+				<div class="do not remove"></div>
 			</div>
 
-			<section class="research-section">
-				<div class="section-heading flex items-center">
-					<div><h3>Research &amp; technology</h3></div></div>
+			<section>
+				<h3 class="py-2 text-xl font-bold text-white">Tech Tree</h3>
 				<div class="tech-preview grid gap-4 sm:grid-cols-3">
 					{#each technologyTrees as tree}
-						<div class='marbleImage p-5 pb-2 shadow-xl {`border border-[#2b281f] p-2 ${tree.tone}`}'>
+						<div
+							class="marbleImage p-5 pb-2 shadow-xl {`border border-[#2b281f] p-2 ${tree.tone}`}"
+						>
 							<div class="mb-3 flex items-center gap-2 border-b border-[#d1ccbf] pb-3">
 								<span class="tech-branch-icon">{tree.icon}</span>
 								<strong class="flex-1">{tree.name}</strong>
 								<div class="flex items-center gap-2">
 									<button
-										class="w-8 h-8 p-2 flex items-center justify-center border"
+										class="flex h-8 w-8 items-center justify-center border p-2"
 										aria-label={`Remove one ${tree.name} technology level`}
 										disabled={technologyProgress[tree.name] === 0}
-										onclick={() => changeTechnology(tree.name, -1)}>−</button>
+										onclick={() => changeTechnology(tree.name, -1)}>−</button
+									>
 									<strong class="tech-level">{technologyProgress[tree.name]} / 3</strong>
 									<button
-									class="w-8 h-8 p-2 flex items-center justify-center border"
+										class="flex h-8 w-8 items-center justify-center border p-2"
 										aria-label={`Add one ${tree.name} technology level`}
 										disabled={technologyProgress[tree.name] === 3}
-										onclick={() => changeTechnology(tree.name, 1)}>+</button>
+										onclick={() => changeTechnology(tree.name, 1)}>+</button
+									>
 								</div>
 							</div>
 							<div class="flex flex-col gap-4 pb-4">
@@ -214,13 +229,15 @@
 			</section>
 		</section>
 	</div>
-	<footer><span>Game state is saved in this browser</span></footer>
 </main>
 
 <style>
-    .marbleImage {
+	main {
+		background-image: url('/src/lib/assets/map.jpg');
+	}
+	.marbleImage {
 		background-image: url('/src/lib/assets/ymarble.jpg');
-    }
+	}
 	.parchmentImage {
 		background-image: url('/src/lib/assets/parchment.jpg');
 	}
