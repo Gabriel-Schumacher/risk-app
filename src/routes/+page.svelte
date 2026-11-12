@@ -27,9 +27,9 @@
 			icon: '◈',
 			tone: 'economy',
 			layers: [
-				{ name: 'Trade Routes', detail: 'Improve resource exchanges', cash: 30, resourceAmount: 1 },
-				{ name: 'Guilds', detail: 'Build more efficiently', cash: 50, resourceAmount: 2 },
-				{ name: 'Mastery', detail: 'Lead the richest nation', cash: 70, resourceAmount: 3 }
+				{ name: 'Trade', detail: 'Trade 4 of the same resource, for 1 of another', cash: 30, resourceAmount: 1 },
+				{ name: 'Infrastructure', detail: 'You may build 2 production buildings per territory', cash: 50, resourceAmount: 2 },
+				{ name: 'Guilds', detail: 'Trade 3 of the same resource, for 1 of another or 6 of any resource for 1 of another', cash: 100, resourceAmount: 2 }
 			]
 		},
 		{
@@ -37,9 +37,9 @@
 			icon: '✦',
 			tone: 'religion',
 			layers: [
-				{ name: 'Traditions', detail: 'Unite your settlements', cash: 30, resourceAmount: 1 },
-				{ name: 'Shrines', detail: 'Strengthen your influence', cash: 50, resourceAmount: 2 },
-				{ name: 'Divinity', detail: 'Inspire a golden age', cash: 70, resourceAmount: 3 }
+				{ name: 'Faith', detail: 'Draw 2 religious cards randomly, pick one to keep. Return the other.', cash: 30, resourceAmount: 1 },
+				{ name: 'Holy Order', detail: 'May train missionaries', cash: 30, resourceAmount: 2 },
+				{ name: 'Sanctuaries', detail: 'Roll 2 dice when attempting to convert a territory', cash: 100, resourceAmount: 3 }
 			]
 		},
 		{
@@ -47,9 +47,9 @@
 			icon: '⚒',
 			tone: 'military',
 			layers: [
-				{ name: 'Militia', detail: 'Raise a defensive force', cash: 30, resourceAmount: 1 },
-				{ name: 'Ironworking', detail: 'Unlock stronger armies', cash: 50, resourceAmount: 2 },
-				{ name: 'Strategy', detail: 'Command the battlefield', cash: 70, resourceAmount: 3 }
+				{ name: 'Defense', detail: 'May build forts', cash: 30, resourceAmount: 1 },
+				{ name: 'Artillery', detail: 'May build artillery', cash: 50, resourceAmount: 2 },
+				{ name: 'Cavalry', detail: 'May build cavalry', cash: 80, resourceAmount: 3 }
 			]
 		}
 	];
