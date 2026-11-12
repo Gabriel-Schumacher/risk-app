@@ -36,7 +36,27 @@ export const buildOrders: BuildOrder[] = [
 			},
 			{
 				title: 'Misionary',
-				text: 'Allows you to convert other players\' territories to your religion. Place them on any territory you control.',
+				text: "Must have Religion Level 2 unlocked. Allows you to convert other players' territories to your religion. Place them on any territory you control.",
+				cost: {
+					cash: 30,
+					resources: {
+						wheat: 1
+					}
+				}
+			},
+			{
+				title: 'Artillery',
+				text: 'Can attack an adjacent territory once a turn. Roll 3 dice, 4+ kill 1 troop each. Artillery do not count as a troop for other battle purposes.',
+				cost: {
+					cash: 30,
+					resources: {
+						wheat: 1
+					}
+				}
+			},
+			{
+				title: 'Cavalry',
+				text: 'Can attack up to 3 territories away. Roll 3 dice, 4+ kill 1 troop each, 1 kills the cavalry. Cavalry do not count as troops for other battle purposes.',
 				cost: {
 					cash: 30,
 					resources: {
