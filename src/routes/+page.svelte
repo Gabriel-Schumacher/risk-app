@@ -12,11 +12,11 @@
 	};
 
 	const resourceInfo: Record<Resource, { label: string; icon: string; tone: string; color: string }> = {
-		brick: { label: 'Brick', icon: '◆', tone: 'brick', color: 'red' },
-		wood: { label: 'Lumber', icon: '✦', tone: 'wood', color: 'brown' },
-		sheep: { label: 'Wool', icon: '✤', tone: 'sheep', color: 'green' },
-		wheat: { label: 'Grain', icon: '✺', tone: 'wheat', color: 'yellow' },
-		ore: { label: 'Ore', icon: '⬡', tone: 'ore', color: 'gray' }
+		brick: { label: 'Brick', icon: '◆', tone: 'brick', color: '#8C1A00' },
+		wood: { label: 'Lumber', icon: '✦', tone: 'wood', color: '#8C6044' },
+		sheep: { label: 'Wool', icon: '✤', tone: 'sheep', color: '#ffffff' },
+		wheat: { label: 'Wheat', icon: '✺', tone: 'wheat', color: '#FFD700' },
+		ore: { label: 'Ore', icon: '⬡', tone: 'ore', color: '#808080' }
 	};
 	const technologyTrees = [
 		{
@@ -153,12 +153,12 @@
 				<div><p class="eyebrow">Your ledger</p><h3>Resources</h3></div>
 				<span class="hint">Income per production building</span>
 			</div>
-			<div class="flex flex-col gap-4">
+			<div class="flex flex-col gap-2 parchmentImage">
 				{#each Object.entries(resourceInfo) as [key, info]}
 					{@const resource = key as Resource}
-					<article class={`flex justify-between gap-4 ${info.tone} rounded-sm border border-[#d8d1c3] bg-[#fbf8f2] p-4`}>
+					<article class={`flex justify-between gap-4 ${info.tone} p-3 px-4`}>
 						<div class="flex items-center gap-2">
-							<span class="resource-icon">{info.icon}</span>
+							<span class="resource-icon border-2 rounded-full w-5 h-5 flex items-center justify-center" style={`border-color: ${info.color}; background-color: ${info.color}`}>{info.icon}</span>
 							<span class="resource-label">{info.label}</span>
 						</div>
 						<div class="flex items-center gap-4">
@@ -178,7 +178,7 @@
 					<div><h3>Research &amp; technology</h3></div></div>
 				<div class="tech-preview grid gap-4 sm:grid-cols-3">
 					{#each technologyTrees as tree}
-						<div class='marbleImage p-5 pb-2 {`border border-[#2b281f] p-2 ${tree.tone}`}'>
+						<div class='marbleImage p-5 pb-2 shadow-xl {`border border-[#2b281f] p-2 ${tree.tone}`}'>
 							<div class="mb-3 flex items-center gap-2 border-b border-[#d1ccbf] pb-3">
 								<span class="tech-branch-icon">{tree.icon}</span>
 								<strong class="flex-1">{tree.name}</strong>
@@ -221,4 +221,7 @@
     .marbleImage {
 		background-image: url('/src/lib/assets/ymarble.jpg');
     }
+	.parchmentImage {
+		background-image: url('/src/lib/assets/parchment.jpg');
+	}
 </style>
