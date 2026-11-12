@@ -1,1 +1,10 @@
 @import 'tailwindcss';
+@plugin "daisyui";
+
+body {
+    background-color: #cacaca;
+}
+* {
+    box-sizing: border-box;
+    color: black;
+}
