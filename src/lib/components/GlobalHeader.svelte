@@ -17,7 +17,7 @@
 	});
 </script>
 
-<div class="flex w-full flex-col gap-2 bg-none p-2">
+<div class="flex w-full flex-col gap-2 bg-[#464e56] p-2">
 	<ul class="flex items-center justify-between gap-2 pt-2">
 		<div>
 			<button
