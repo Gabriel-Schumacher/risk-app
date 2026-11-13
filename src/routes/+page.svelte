@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import PointTracker from '#lib/components/PointTracker.svelte';
 	import TechCard from '#lib/components/TechCard.svelte';
 	import { resourceInfo } from '#lib/data/icon.ts';
 
@@ -143,6 +144,7 @@
 
 	<div class="layout grid gap-10 lg:grid-cols-[minmax(0,1fr)_315px]">
 		<section>
+			<PointTracker />
 			<h3 class="py-2 text-xl font-bold text-white">Resources</h3>
 			<div class="parchmentImage flex flex-col gap-2">
 				{#each Object.entries(resourceInfo) as [key, info]}

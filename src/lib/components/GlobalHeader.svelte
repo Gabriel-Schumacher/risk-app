@@ -1,7 +1,12 @@
 <script lang="ts">
-	let winner = $state<string | null>(null);
+	import { onMount } from 'svelte';
 	import BuildBuilding from '#lib/components/BuildBuilding.svelte';
 	import BuildPeople from '#lib/components/BuildPeople.svelte';
+	import { scoreboard, startScoreboard } from '#lib/data/scoreboard.svelte.ts';
+
+	onMount(() => {
+		void startScoreboard();
+	});
 </script>
 
 <div class="flex w-full flex-col gap-2 bg-none p-2">
@@ -34,7 +39,52 @@
 				</li>
 			</a>
 			<button
-				class="m-1 flex h-8 w-8 items-center justify-center btn-ghost bg-none border-2 border-white rounded-full"
+				class="m-1 flex h-8 items-center justify-center gap-2 rounded-full border-2 border-white px-2 text-white"
+				aria-label="Open global scoreboard"
+				onclick={() => document.querySelector<HTMLDialogElement>('#scoreboard-modal')?.showModal()}
+			>
+				<span aria-hidden="true">♟</span>
+				<span class="sr-only sm:not-sr-only">Scoreboard</span>
+			</button>
+			<dialog id="scoreboard-modal" class="modal font-bold text-black">
+				<div class="parchmentImage modal-box">
+					<div class="flex items-center justify-between">
+						<h2 class="text-lg font-bold">Global scoreboard</h2>
+						<div class="modal-action">
+							<button class="btn" onclick={() => void startScoreboard()}>Refresh</button>
+							<form method="dialog">
+								<button class="btn">Close</button>
+							</form>
+						</div>
+					</div>
+					{#if scoreboard.loading}
+						<p class="py-4">Loading scoreboard…</p>
+					{:else if scoreboard.error}
+						<p class="py-4 text-red-800" role="alert">{scoreboard.error}</p>
+					{:else if scoreboard.players.length === 0}
+						<p class="py-4">No players have selected a color yet.</p>
+					{:else}
+						<ul class="flex flex-col gap-2 py-4">
+							{#each scoreboard.players as player (player.id)}
+								<li
+									class="flex items-center justify-between rounded border border-black/20 bg-white/40 p-3"
+								>
+									<span class="flex items-center gap-3 capitalize">
+										<span
+											class="h-5 w-5 rounded-full border border-black/30"
+											style={`background-color: ${player.color}`}
+										></span>
+										{player.color}
+									</span>
+									<strong>{player.victory_points} / 10 points</strong>
+								</li>
+							{/each}
+						</ul>
+					{/if}
+				</div>
+			</dialog>
+			<button
+				class="m-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white btn-ghost bg-none"
 				onclick={() => document.querySelector<HTMLDialogElement>('#my_modal_1')?.showModal()}
 			>
 				<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
@@ -58,7 +108,7 @@
 				</div>
 			</dialog>
 			<button
-				class="m-1 flex h-8 w-8 items-center justify-center btn-ghost bg-none border-2 border-white rounded-full"
+				class="m-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white btn-ghost bg-none"
 				onclick={() => document.querySelector<HTMLDialogElement>('#my_modal_2')?.showModal()}
 			>
 				<svg class="h-6 w-6" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
