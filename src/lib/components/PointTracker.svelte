@@ -3,14 +3,12 @@
 	import {
 		claimPlayerColor,
 		playerColors,
-		releasePlayerColor,
+		playerStorageKey,
 		scoreboard,
 		startScoreboard,
 		updateVictoryPoints,
 		type PlayerColor
 	} from '#lib/data/scoreboard.svelte.ts';
-
-	const playerStorageKey = 'risk-app-scoreboard-player-id';
 
 	let playerId = $state<string | null>(null);
 	let pending = $state(false);
@@ -57,21 +55,6 @@
 			pending = false;
 		}
 	}
-
-	async function resetPlayer() {
-		if (!playerId) return;
-		pending = true;
-		actionError = '';
-		try {
-			await releasePlayerColor(playerId);
-			localStorage.removeItem(playerStorageKey);
-			playerId = null;
-		} catch (error) {
-			actionError = error instanceof Error ? error.message : 'Could not reset this player.';
-		} finally {
-			pending = false;
-		}
-	}
 </script>
 
 <section
@@ -107,7 +90,6 @@
 					onclick={() => changePoints(1)}>+</button
 				>
 			</div>
-			<button class="btn btn-sm" disabled={pending} onclick={resetPlayer}>Reset color</button>
 		</div>
 	{:else}
 		<p class="mb-3">Choose an available player color to start tracking victory points.</p>

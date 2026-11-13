@@ -12,6 +12,7 @@ export type ScoreboardPlayer = {
 };
 
 const playerColumns = 'id,color,victory_points,created_at,updated_at';
+export const playerStorageKey = 'risk-app-scoreboard-player-id';
 
 export const scoreboard = $state({
 	players: [] as ScoreboardPlayer[],

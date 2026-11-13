@@ -3,6 +3,7 @@
 	import PointTracker from '#lib/components/PointTracker.svelte';
 	import TechCard from '#lib/components/TechCard.svelte';
 	import { resourceInfo } from '#lib/data/icon.ts';
+	import { playerStorageKey, releasePlayerColor } from '#lib/data/scoreboard.svelte.ts';
 
 	type Resource = 'brick' | 'wood' | 'sheep' | 'wheat' | 'ore';
 
@@ -71,6 +72,8 @@
 		Military: 0
 	});
 	let saved = $state(false);
+	let resetting = $state(false);
+	let resetError = $state('');
 
 	onMount(() => {
 		const stored = localStorage.getItem('frontier-catan-game');
@@ -112,10 +115,22 @@
 		save();
 	}
 
-	function resetGame() {
-		if (confirm('Reset this game and clear all saved progress?')) {
+	async function resetGame() {
+		if (!confirm('Reset this game, including your selected color and points?')) return;
+
+		resetting = true;
+		resetError = '';
+		const playerId = localStorage.getItem(playerStorageKey);
+		try {
+			if (playerId) await releasePlayerColor(playerId);
+			localStorage.removeItem(playerStorageKey);
 			localStorage.removeItem('frontier-catan-game');
 			location.reload();
+		} catch (error) {
+			resetError =
+				error instanceof Error ? `Could not reset player color: ${error.message}` : 'Could not reset player color.';
+		} finally {
+			resetting = false;
 		}
 	}
 </script>
@@ -138,9 +153,14 @@
 		<div class="game-meta flex items-center gap-5 sm:gap-8">
 			<div></div>
 			<div class="save-state text-white">{saved ? '✓ Saved locally' : '● Autosave on'}</div>
-			<button class="text-white" aria-label="Reset game" onclick={resetGame}>↻</button>
+			<button class="text-white" aria-label="Reset game and player color" disabled={resetting} onclick={resetGame}>
+				↻
+			</button>
 		</div>
 	</header>
+	{#if resetError}
+		<p class="mt-2 text-sm text-red-200" role="alert">{resetError}</p>
+	{/if}
 
 	<div class="layout grid gap-10 lg:grid-cols-[minmax(0,1fr)_315px]">
 		<section>
