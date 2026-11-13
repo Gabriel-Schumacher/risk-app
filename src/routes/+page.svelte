@@ -20,9 +20,25 @@
 			icon: '◈',
 			tone: 'economy',
 			layers: [
-				{ name: 'Trade', detail: 'Trade 4 of the same resource, for 1 of another', cash: 30, resourceAmount: 1 },
-				{ name: 'Infrastructure', detail: 'You may build 2 production buildings per territory', cash: 50, resourceAmount: 2 },
-				{ name: 'Guilds', detail: 'Trade 3 of the same resource, for 1 of another or 6 of any resource for 1 of another', cash: 100, resourceAmount: 2 }
+				{
+					name: 'Trade',
+					detail: 'Trade 4 of the same resource, for 1 of another',
+					cash: 30,
+					resourceAmount: 1
+				},
+				{
+					name: 'Infrastructure',
+					detail: 'You may build 2 production buildings per territory',
+					cash: 50,
+					resourceAmount: 2
+				},
+				{
+					name: 'Guilds',
+					detail:
+						'Trade 3 of the same resource, for 1 of another or 6 of any resource for 1 of another',
+					cash: 100,
+					resourceAmount: 2
+				}
 			]
 		},
 		{
@@ -30,9 +46,19 @@
 			icon: '✦',
 			tone: 'religion',
 			layers: [
-				{ name: 'Faith', detail: 'Draw 2 religious cards randomly, pick one to keep. Return the other.', cash: 30, resourceAmount: 1 },
+				{
+					name: 'Faith',
+					detail: 'Draw 2 religious cards randomly, pick one to keep. Return the other.',
+					cash: 30,
+					resourceAmount: 1
+				},
 				{ name: 'Holy Order', detail: 'May train missionaries', cash: 30, resourceAmount: 2 },
-				{ name: 'Sanctuaries', detail: 'Roll 2 dice when attempting to convert a territory', cash: 100, resourceAmount: 3 }
+				{
+					name: 'Sanctuaries',
+					detail: 'Roll 2 dice when attempting to convert a territory',
+					cash: 100,
+					resourceAmount: 3
+				}
 			]
 		},
 		{
@@ -116,8 +142,6 @@
 	}
 
 	async function resetGame() {
-		if (!confirm('Reset this game, including your selected color and points?')) return;
-
 		resetting = true;
 		resetError = '';
 		const playerId = localStorage.getItem(playerStorageKey);
@@ -128,7 +152,9 @@
 			location.reload();
 		} catch (error) {
 			resetError =
-				error instanceof Error ? `Could not reset player color: ${error.message}` : 'Could not reset player color.';
+				error instanceof Error
+					? `Could not reset player color: ${error.message}`
+					: 'Could not reset player color.';
 		} finally {
 			resetting = false;
 		}
@@ -151,11 +177,31 @@
 			</div>
 		</div>
 		<div class="game-meta flex items-center gap-5 sm:gap-8">
-			<div></div>
-			<div class="save-state text-white">{saved ? '✓ Saved locally' : '● Autosave on'}</div>
-			<button class="text-white" aria-label="Reset game and player color" disabled={resetting} onclick={resetGame}>
-				↻
+			<button
+				class="m-1 px-1 flex items-center justify-center rounded-full border-2 border-white text-white btn-info"
+				onclick={() => document.querySelector<HTMLDialogElement>('#my_modal_reset')?.showModal()}
+			>
+				Reset ↻
 			</button>
+			<dialog id="my_modal_reset" class="modal font-bold text-black">
+				<div class="parchmentImage modal-box">
+					<div class="flex items-center justify-between">
+						<div class="modal-action">
+							<form method="dialog">
+								<!-- if there is a button in form, it will close the modal -->
+								<button class="btn">Cancel</button>
+								<button
+									class="btn bg-warning-content text-warning"
+									aria-label="Reset game and player color"
+									disabled={resetting}
+									onclick={resetGame}>Reset ↻</button
+								>
+							</form>
+						</div>
+					</div>
+					<p class="py-4">Do you want to reset your game and player color?</p>
+				</div>
+			</dialog>
 		</div>
 	</header>
 	{#if resetError}

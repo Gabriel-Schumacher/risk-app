@@ -58,10 +58,10 @@
 </script>
 
 <section
-	class="parchmentImage mb-6 rounded-lg p-4 text-black shadow-lg"
+	class="marbleImage mb-6 p-4 text-black shadow-lg"
 	aria-labelledby="point-tracker-title"
 >
-	<h2 id="point-tracker-title" class="mb-3 text-xl font-bold">Player point tracker</h2>
+	<h2 id="point-tracker-title" class="mb-3 text-xl font-bold">Victory Points</h2>
 
 	{#if currentPlayer}
 		<div class="flex flex-wrap items-center justify-between gap-4">
@@ -120,7 +120,10 @@
 </section>
 
 <style>
-	.parchmentImage {
+	/* .parchmentImage {
 		background-image: url('../assets/parchment.jpg');
+	} */
+    	.marbleImage {
+		background-image: url('../assets/ymarble.jpg');
 	}
 </style>
