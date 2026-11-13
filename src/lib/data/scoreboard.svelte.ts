@@ -1,6 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-export const playerColors = ['blue', 'red', 'green', 'yellow', 'purple', 'orange'] as const;
+export const playerColors = ['blue', 'red', 'green', 'yellow', 'purple', 'black'] as const;
 export type PlayerColor = (typeof playerColors)[number];
 
 export type ScoreboardPlayer = {

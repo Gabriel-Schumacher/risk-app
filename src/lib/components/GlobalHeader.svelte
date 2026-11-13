@@ -4,6 +4,14 @@
 	import BuildPeople from '#lib/components/BuildPeople.svelte';
 	import { scoreboard, startScoreboard } from '#lib/data/scoreboard.svelte.ts';
 
+	let leadingPlayerColor = $derived.by(() => {
+		if (scoreboard.players.length === 0) return 'black';
+
+		const highestScore = Math.max(...scoreboard.players.map((player) => player.victory_points));
+		const leaders = scoreboard.players.filter((player) => player.victory_points === highestScore);
+		return leaders.length === 1 ? leaders[0].color : 'white';
+	});
+
 	onMount(() => {
 		void startScoreboard();
 	});
@@ -12,7 +20,11 @@
 <div class="flex w-full flex-col gap-2 bg-none p-2">
 	<ul class="flex items-center justify-between gap-2 pt-2">
 		<li class="flex h-6 w-auto items-center gap-2">
-			<div class="background-white rounded-full border-2 p-2"></div>
+			<div
+				class="h-4 w-4 rounded-full border-2 border-white"
+				style={`background-color: ${leadingPlayerColor}`}
+				aria-label="Leading player's color"
+			></div>
 			<svg class="h-6 w-6" fill="gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
 				><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path
 					d="M313 87.2c9.2-7.3 15-18.6 15-31.2 0-22.1-17.9-40-40-40s-40 17.9-40 40c0 12.6 5.9 23.9 15 31.2L194.6 194.8c-10 15.7-31.3 19.6-46.2 8.4L88.9 158.7c4.5-6.4 7.1-14.3 7.1-22.7 0-22.1-17.9-40-40-40s-40 17.9-40 40c0 21.8 17.5 39.6 39.2 40L87.8 393.5c4.7 31.3 31.6 54.5 63.3 54.5l273.8 0c31.7 0 58.6-23.2 63.3-54.5L520.8 176c21.7-.4 39.2-18.2 39.2-40 0-22.1-17.9-40-40-40s-40 17.9-40 40c0 8.4 2.6 16.3 7.1 22.7l-59.4 44.6c-14.9 11.2-36.2 7.3-46.2-8.4L313 87.2z"
