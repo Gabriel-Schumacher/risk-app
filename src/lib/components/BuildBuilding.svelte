@@ -1,8 +1,15 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
 	import { buildOrders } from '#lib/data/buildOrders.ts';
 	import { resourceInfo } from '#lib/data/icon.ts';
+	import {
+		isTechnologyUnlocked,
+		technologyProgressContext,
+		type TechnologyProgress
+	} from '#lib/data/technology.svelte.ts';
 
 	type Resource = keyof typeof resourceInfo;
+	const technologyProgress = getContext<TechnologyProgress>(technologyProgressContext);
 </script>
 
 <div class="flex flex-col gap-5">
@@ -10,37 +17,52 @@
 		<section class="flex flex-col gap-3">
 			<h4 class="border-b-2 border-[#c7a758] pb-2 text-lg font-bold">{order.title}</h4>
 			{#each order.details as detail}
-				<article class="flex flex-col gap-3 border-2 border-[#b28719] p-2">
+				{@const technologyUnlocked =
+					!detail.requirement || isTechnologyUnlocked(technologyProgress, detail.requirement)}
+				{@const locked =
+					!!detail.requirement && !technologyUnlocked && detail.requirement.mode !== 'upgrade'}
+				{@const limited =
+					!!detail.requirement && !technologyUnlocked && detail.requirement.mode === 'upgrade'}
+				<article
+					class={`flex flex-col gap-3 border-2 p-2 ${locked ? 'border-red-700 bg-red-100/60' : limited ? 'border-amber-700 bg-amber-100/60' : 'border-[#b28719]'}`}
+				>
 					<div>
 						<div class="flex flex-wrap items-center gap-2" role="group" aria-label="Build cost">
 							<h5 class="font-bold">{detail.title}</h5>
+							{#if detail.requirement}
+								<span
+									class={`rounded border px-2 py-1 text-sm ${locked ? 'border-red-700 text-red-900' : limited ? 'border-amber-700 text-amber-900' : 'border-green-700 text-green-900'}`}
+									role="status"
+								>
+									{locked ? 'Locked' : limited ? 'Limited' : 'Unlocked'} · {detail.requirement.name}
+								</span>
+							{/if}
 							<div class="flex items-center px-2 py-1">
 								<span class="flex items-center py-1">
 									<strong>${detail.cost.cash} +</strong>
 								</span>
 								<div class="flex">
-								{#each Object.entries(detail.cost.resources) as [resourceKey, amount]}
-									{@const resource = resourceKey as Resource}
-									{@const info = resourceInfo[resource]}
-									<span
-										class={`flex items-center py-1 ${info.tone}`}
-										role="img"
-										aria-label={`${amount} ${info.label}`}
-									>
-										<span class="flex items-center">
-											{#each Array(amount) as _}
-												<span
-													class="resource-icon mx-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2"
-													style={`border-color: ${info.color}; background-color: ${info.color}`}
-													aria-hidden="true">{info.icon}</span
-												>
-											{/each}
+									{#each Object.entries(detail.cost.resources) as [resourceKey, amount]}
+										{@const resource = resourceKey as Resource}
+										{@const info = resourceInfo[resource]}
+										<span
+											class={`flex items-center py-1 ${info.tone}`}
+											role="img"
+											aria-label={`${amount} ${info.label}`}
+										>
+											<span class="flex items-center">
+												{#each Array(amount) as _}
+													<span
+														class="resource-icon mx-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2"
+														style={`border-color: ${info.color}; background-color: ${info.color}`}
+														aria-hidden="true">{info.icon}</span
+													>
+												{/each}
+											</span>
+											<!-- <span>{info.label}</span> -->
 										</span>
-										<!-- <span>{info.label}</span> -->
-									</span>
-								{/each}									
+									{/each}
 								</div>
-
 							</div>
 						</div>
 					</div>

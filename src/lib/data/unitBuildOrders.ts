@@ -1,8 +1,11 @@
+import type { TechnologyRequirement } from './technology.svelte.ts';
+
 type BuildOrder = {
 	title: string;
 	details: {
 		title: string;
 		text: string;
+		requirement?: TechnologyRequirement;
 		cost: {
 			cash: number;
 			resources: Partial<Record<'brick' | 'wood' | 'sheep' | 'wheat' | 'ore', number>>;
@@ -35,8 +38,9 @@ export const unitBuildOrders: BuildOrder[] = [
 				}
 			},
 			{
-				title: 'Misionary',
+				title: 'Missionary',
 				text: "Must have Religion Level 2 unlocked. Allows you to convert other players' territories to your religion. Place them on any territory you control.",
+				requirement: { branch: 'Religion', level: 2, name: 'Holy Order' },
 				cost: {
 					cash: 30,
 					resources: {
@@ -47,6 +51,7 @@ export const unitBuildOrders: BuildOrder[] = [
 			{
 				title: 'Artillery',
 				text: 'Can attack an adjacent territory once a turn. Roll 3 dice, 4+ kill 1 troop each. Artillery do not count as a troop for other battle purposes.',
+				requirement: { branch: 'Military', level: 2, name: 'Artillery' },
 				cost: {
 					cash: 40,
 					resources: {
@@ -57,6 +62,7 @@ export const unitBuildOrders: BuildOrder[] = [
 			{
 				title: 'Cavalry',
 				text: 'Can attack up to 3 territories away. Roll 3 dice, 4+ kill 1 troop each, 1 kills the cavalry. Cavalry do not count as troops for other battle purposes.',
+				requirement: { branch: 'Military', level: 3, name: 'Cavalry' },
 				cost: {
 					cash: 40,
 					resources: {

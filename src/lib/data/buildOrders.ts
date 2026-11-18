@@ -1,8 +1,11 @@
+import type { TechnologyRequirement } from './technology.svelte.ts';
+
 type BuildOrder = {
 	title: string;
 	details: {
 		title: string;
 		text: string;
+		requirement?: TechnologyRequirement;
 		cost: {
 			cash: number;
 			resources: Partial<Record<'brick' | 'wood' | 'sheep' | 'wheat' | 'ore', number>>;
@@ -17,6 +20,7 @@ export const buildOrders: BuildOrder[] = [
 			{
 				title: 'Production Building',
 				text: 'Adds +1 production to the resource type it is placed on (One per territory until you have unlocked Infrastructure).',
+				requirement: { branch: 'Economy', level: 2, name: 'Infrastructure', mode: 'upgrade' },
 				cost: {
 					cash: 40,
 					resources: {
@@ -40,7 +44,7 @@ export const buildOrders: BuildOrder[] = [
 			},
 			{
 				title: 'City',
-				text: "Adds +1 VP and +1 production if you have a production building in the same territory. Comes with 4 troops in the territory built.",
+				text: 'Adds +1 VP and +1 production if you have a production building in the same territory. Comes with 4 troops in the territory built.',
 				cost: {
 					cash: 80,
 					resources: {
@@ -52,6 +56,7 @@ export const buildOrders: BuildOrder[] = [
 			{
 				title: 'Fort',
 				text: 'Allows the defender to roll one more die while defending. (When defending against cavalry roll 2 dice, +4 kill)',
+				requirement: { branch: 'Military', level: 1, name: 'Defense' },
 				cost: {
 					cash: 30,
 					resources: {
@@ -59,7 +64,7 @@ export const buildOrders: BuildOrder[] = [
 						brick: 2
 					}
 				}
-			},
+			}
 		]
 	}
 ];

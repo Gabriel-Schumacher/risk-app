@@ -1,8 +1,13 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import PointTracker from '#lib/components/PointTracker.svelte';
 	import TechCard from '#lib/components/TechCard.svelte';
 	import { resourceInfo } from '#lib/data/icon.ts';
+	import {
+		technologyProgressContext,
+		type TechnologyBranch,
+		type TechnologyProgress
+	} from '#lib/data/technology.svelte.ts';
 	import { playerStorageKey, releasePlayerColor } from '#lib/data/scoreboard.svelte.ts';
 
 	type Resource = 'brick' | 'wood' | 'sheep' | 'wheat' | 'ore';
@@ -72,12 +77,12 @@
 			]
 		}
 	];
-	type TechnologyBranch = (typeof technologyTrees)[number]['name'];
 	const technologyResource: Record<TechnologyBranch, Resource> = {
 		Economy: 'brick',
 		Religion: 'wheat',
 		Military: 'ore'
 	};
+	const technologyProgress = getContext<TechnologyProgress>(technologyProgressContext);
 
 	let resources = $state<Record<Resource, number>>({
 		brick: 0,
@@ -92,11 +97,6 @@
 		{ name: 'Theo', color: '#5c7f72', points: 4, armies: 2 },
 		{ name: 'June', color: '#6b6b8f', points: 3, armies: 2 }
 	]);
-	let technologyProgress = $state<Record<TechnologyBranch, number>>({
-		Economy: 0,
-		Religion: 0,
-		Military: 0
-	});
 	let saved = $state(false);
 	let resetting = $state(false);
 	let resetError = $state('');
@@ -109,7 +109,7 @@
 				if (state.resources) resources = { ...resources, ...state.resources };
 				if (state.players) players = state.players;
 				if (state.technologyProgress) {
-					technologyProgress = { ...technologyProgress, ...state.technologyProgress };
+					Object.assign(technologyProgress, state.technologyProgress);
 				}
 			} catch {
 				localStorage.removeItem('frontier-catan-game');
@@ -134,10 +134,7 @@
 	function changeTechnology(branch: TechnologyBranch, amount: number) {
 		const nextLevel = technologyProgress[branch] + amount;
 		if (nextLevel < 0 || nextLevel > 3) return;
-		technologyProgress = {
-			...technologyProgress,
-			[branch]: nextLevel
-		};
+		technologyProgress[branch] = nextLevel;
 		save();
 	}
 
@@ -178,7 +175,7 @@
 		</div>
 		<div class="game-meta flex items-center gap-5 sm:gap-8">
 			<button
-				class="m-1 px-1 flex items-center justify-center rounded-full border-2 border-[#b28719] bg-[#aa86298f] text-white btn-info"
+				class="m-1 flex items-center justify-center rounded-full border-2 border-[#b28719] bg-[#aa86298f] px-1 text-white btn-info"
 				onclick={() => document.querySelector<HTMLDialogElement>('#my_modal_reset')?.showModal()}
 			>
 				Reset ↻
@@ -225,17 +222,19 @@
 							<span class="resource-label">{info.label}</span>
 						</div>
 						<div class="flex items-center gap-4">
-							<strong class={`py-1 px-2 rounded-4xl border-2 border-[#ffffff00] ${resources[resource] !== 0 ? 'bg-white border-2 border-black' : ''}`}>
+							<strong
+								class={`rounded-4xl border-2 border-[#ffffff00] px-2 py-1 ${resources[resource] !== 0 ? 'border-2 border-black bg-white' : ''}`}
+							>
 								{resources[resource]}
 							</strong>
 							<div class="flex items-center gap-2">
 								<button
-									class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
+									class="flex h-8 w-8 items-center justify-center border bg-white p-2"
 									aria-label={`Remove one ${info.label}`}
 									onclick={() => changeResource(resource, -1)}>−</button
 								>
 								<button
-									class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
+									class="flex h-8 w-8 items-center justify-center border bg-white p-2"
 									aria-label={`Add one ${info.label}`}
 									onclick={() => changeResource(resource, 1)}>+</button
 								>
@@ -248,7 +247,7 @@
 
 			<section>
 				<h3 class="py-2 text-xl font-bold text-white">Tech Tree</h3>
-				<div class="tech-preview grid gap-4 sm:grid-cols-3 ">
+				<div class="tech-preview grid gap-4 sm:grid-cols-3">
 					{#each technologyTrees as tree}
 						<div
 							class="marbleImage p-5 pb-2 shadow-xl {`border-2 border-[#b28719] p-2 ${tree.tone}`}"
@@ -258,14 +257,14 @@
 								<strong class="flex-1">{tree.name}</strong>
 								<div class="flex items-center gap-2">
 									<button
-										class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
+										class="flex h-8 w-8 items-center justify-center border bg-white p-2"
 										aria-label={`Remove one ${tree.name} technology level`}
 										disabled={technologyProgress[tree.name] === 0}
 										onclick={() => changeTechnology(tree.name, -1)}>−</button
 									>
 									<strong class="tech-level">{technologyProgress[tree.name]} / 3</strong>
 									<button
-										class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
+										class="flex h-8 w-8 items-center justify-center border bg-white p-2"
 										aria-label={`Add one ${tree.name} technology level`}
 										disabled={technologyProgress[tree.name] === 3}
 										onclick={() => changeTechnology(tree.name, 1)}>+</button
