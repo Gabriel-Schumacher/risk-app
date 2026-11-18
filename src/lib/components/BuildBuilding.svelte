@@ -2,6 +2,7 @@
 	import { getContext } from 'svelte';
 	import { buildOrders } from '#lib/data/buildOrders.ts';
 	import { resourceInfo } from '#lib/data/icon.ts';
+	import ResourceIcon from '#lib/components/ResourceIcon.svelte';
 	import {
 		isTechnologyUnlocked,
 		technologyProgressContext,
@@ -12,7 +13,7 @@
 	const technologyProgress = getContext<TechnologyProgress>(technologyProgressContext);
 </script>
 
-<div class="flex flex-col gap-5">
+<div class="flex flex-col gap-5 pb-8">
 	{#each buildOrders as order}
 		<section class="flex flex-col gap-3">
 			<h4 class="border-b-2 border-[#c7a758] pb-2 text-lg font-bold">{order.title}</h4>
@@ -52,11 +53,7 @@
 										>
 											<span class="flex items-center">
 												{#each Array(amount) as _}
-													<span
-														class="resource-icon mx-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2"
-														style={`border-color: ${info.color}; background-color: ${info.color}`}
-														aria-hidden="true">{info.icon}</span
-													>
+													<ResourceIcon {resource} class="mx-0.5" ariaHidden />
 												{/each}
 											</span>
 											<!-- <span>{info.label}</span> -->

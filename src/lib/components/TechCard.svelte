@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ResourceIcon from '#lib/components/ResourceIcon.svelte';
+
 	type Resource = 'brick' | 'wood' | 'sheep' | 'wheat' | 'ore';
 	type TechnologyBranch = 'Economy' | 'Religion' | 'Military';
 	type Layer = { name: string; detail: string; cash: number; resourceAmount: number };
@@ -9,14 +11,12 @@
 		tree,
 		layer,
 		technologyProgress,
-		resourceInfo,
 		technologyResource
 	}: {
 		index: number;
 		tree: Tree;
 		layer: Layer;
 		technologyProgress: Record<TechnologyBranch, number>;
-		resourceInfo: Record<Resource, { label: string; icon: string; tone: string; color: string }>;
 		technologyResource: Record<TechnologyBranch, Resource>;
 	} = $props();
 </script>
@@ -61,14 +61,13 @@
 		<small class="flex items-center gap-1">
 			<span class="cash-cost">${layer.cash}</span>
 			<span>+</span>
-			{#each Array(layer.resourceAmount) as _, i}
-				<span
-					style={`border-color: ${resourceInfo[technologyResource[tree.name]].color}; background-color: ${resourceInfo[technologyResource[tree.name]].color}`}
-					class={`tech-resource-icon flex h-5 w-5 items-center justify-center rounded-full ${resourceInfo[technologyResource[tree.name]].tone}`}
-					aria-label={resourceInfo[technologyResource[tree.name]].label}
-				>
-					{resourceInfo[technologyResource[tree.name]].icon}
-				</span>
+			{#each Array(layer.resourceAmount) as _}
+				<ResourceIcon
+					resource={technologyResource[tree.name]}
+					shape="circle"
+					bordered={true}
+					class="mx-0.5"
+				/>
 			{/each}
 		</small>
 	</div>

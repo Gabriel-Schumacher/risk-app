@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from 'svelte';
 	import PointTracker from '#lib/components/PointTracker.svelte';
+	import ResourceIcon from '#lib/components/ResourceIcon.svelte';
 	import TechCard from '#lib/components/TechCard.svelte';
 	import { resourceInfo } from '#lib/data/icon.ts';
 	import {
@@ -214,11 +215,7 @@
 					{@const resource = key as Resource}
 					<article class={`flex justify-between gap-4 ${info.tone} p-3 px-4`}>
 						<div class="flex items-center gap-2">
-							<span
-								class="resource-icon flex h-5 w-5 items-center justify-center rounded-full border-2"
-								style={`border-color: ${info.color}; background-color: ${info.color}`}
-								>{info.icon}</span
-							>
+							<ResourceIcon {resource} bordered={true} ariaHidden />
 							<span class="resource-label">{info.label}</span>
 						</div>
 						<div class="flex items-center gap-4">
@@ -273,14 +270,7 @@
 							</div>
 							<div class="flex flex-col gap-4 pb-4">
 								{#each tree.layers as layer, index}
-									<TechCard
-										{index}
-										{tree}
-										{layer}
-										{technologyProgress}
-										{resourceInfo}
-										{technologyResource}
-									/>
+									<TechCard {index} {tree} {layer} {technologyProgress} {technologyResource} />
 								{/each}
 							</div>
 						</div>
