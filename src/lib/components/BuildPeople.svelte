@@ -53,7 +53,7 @@
 										>
 											<span class="flex items-center">
 												{#each Array(amount) as _}
-													<ResourceIcon {resource} class="mx-0.5" ariaHidden />
+													<ResourceIcon {resource} shape="circle" class="mx-0.5" ariaHidden />
 												{/each}
 											</span>
 											<!-- <span>{info.label}</span> -->

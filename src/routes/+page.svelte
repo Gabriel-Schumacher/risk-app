@@ -215,7 +215,7 @@
 					{@const resource = key as Resource}
 					<article class={`flex justify-between gap-4 ${info.tone} p-3 px-4`}>
 						<div class="flex items-center gap-2">
-							<ResourceIcon {resource} bordered={true} ariaHidden />
+							<ResourceIcon {resource} bordered={true} shape="circle" ariaHidden />
 							<span class="resource-label">{info.label}</span>
 						</div>
 						<div class="flex items-center gap-4">
