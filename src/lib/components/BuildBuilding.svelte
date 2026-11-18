@@ -8,9 +8,9 @@
 <div class="flex flex-col gap-5">
 	{#each buildOrders as order}
 		<section class="flex flex-col gap-3">
-			<h4 class="border-b border-[#d1ccbf] pb-2 text-lg font-bold">{order.title}</h4>
+			<h4 class="border-b-2 border-[#c7a758] pb-2 text-lg font-bold">{order.title}</h4>
 			{#each order.details as detail}
-				<article class="flex flex-col gap-3 border-b border-[#d1ccbf] pb-4 last:border-b-0">
+				<article class="flex flex-col gap-3 border-2 border-[#b28719] p-2">
 					<div>
 						<div class="flex flex-wrap items-center gap-2" role="group" aria-label="Build cost">
 							<h5 class="font-bold">{detail.title}</h5>

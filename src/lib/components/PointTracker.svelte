@@ -58,7 +58,7 @@
 </script>
 
 <section
-	class="marbleImage mb-6 p-4 text-black shadow-lg"
+	class="marbleImage mb-6 p-4 text-black shadow-lg border-2 border-[#b28719]"
 	aria-labelledby="point-tracker-title"
 >
 	<h2 id="point-tracker-title" class="mb-3 text-xl font-bold">Victory Points</h2>

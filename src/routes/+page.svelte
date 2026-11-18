@@ -35,7 +35,7 @@
 				{
 					name: 'Guilds',
 					detail:
-						'Trade 3 of the same resource, for 1 of another or 6 of any resource for 1 of another',
+						'Trade 3 of the same resource, for 1 of another or 5 of any resource for 1 of another',
 					cash: 100,
 					resourceAmount: 2
 				}
@@ -178,7 +178,7 @@
 		</div>
 		<div class="game-meta flex items-center gap-5 sm:gap-8">
 			<button
-				class="m-1 px-1 flex items-center justify-center rounded-full border-2 border-white text-white btn-info"
+				class="m-1 px-1 flex items-center justify-center rounded-full border-2 border-[#b28719] bg-[#aa86298f] text-white btn-info"
 				onclick={() => document.querySelector<HTMLDialogElement>('#my_modal_reset')?.showModal()}
 			>
 				Reset ↻
@@ -187,7 +187,7 @@
 				<div class="parchmentImage modal-box">
 					<div class="flex items-center justify-between">
 						<div class="modal-action">
-							<form method="dialog">
+							<form method="dialog" class="flex justify-between">
 								<!-- if there is a button in form, it will close the modal -->
 								<button class="btn">Cancel</button>
 								<button
@@ -212,7 +212,7 @@
 		<section>
 			<PointTracker />
 			<h3 class="py-2 text-xl font-bold text-white">Resources</h3>
-			<div class="parchmentImage flex flex-col gap-2">
+			<div class="parchmentImage flex flex-col gap-2 border-2 border-[#b28719]">
 				{#each Object.entries(resourceInfo) as [key, info]}
 					{@const resource = key as Resource}
 					<article class={`flex justify-between gap-4 ${info.tone} p-3 px-4`}>
@@ -246,10 +246,10 @@
 
 			<section>
 				<h3 class="py-2 text-xl font-bold text-white">Tech Tree</h3>
-				<div class="tech-preview grid gap-4 sm:grid-cols-3">
+				<div class="tech-preview grid gap-4 sm:grid-cols-3 ">
 					{#each technologyTrees as tree}
 						<div
-							class="marbleImage p-5 pb-2 shadow-xl {`border border-[#2b281f] p-2 ${tree.tone}`}"
+							class="marbleImage p-5 pb-2 shadow-xl {`border-2 border-[#b28719] p-2 ${tree.tone}`}"
 						>
 							<div class="mb-3 flex items-center gap-2 border-b border-[#d1ccbf] pb-3">
 								<span class="tech-branch-icon">{tree.icon}</span>
