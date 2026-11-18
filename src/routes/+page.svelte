@@ -17,7 +17,7 @@
 	const technologyTrees = [
 		{
 			name: 'Economy' as const,
-			icon: '◈',
+			icon: '🪙',
 			tone: 'economy',
 			layers: [
 				{
@@ -43,7 +43,7 @@
 		},
 		{
 			name: 'Religion' as const,
-			icon: '✦',
+			icon: '⛪',
 			tone: 'religion',
 			layers: [
 				{
@@ -63,7 +63,7 @@
 		},
 		{
 			name: 'Military' as const,
-			icon: '⚒',
+			icon: '⚔️',
 			tone: 'military',
 			layers: [
 				{ name: 'Defense', detail: 'May build forts', cash: 30, resourceAmount: 1 },
