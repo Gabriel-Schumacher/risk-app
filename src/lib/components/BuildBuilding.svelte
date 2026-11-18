@@ -18,26 +18,29 @@
 								<span class="flex items-center py-1">
 									<strong>${detail.cost.cash} +</strong>
 								</span>
+								<div class="flex">
 								{#each Object.entries(detail.cost.resources) as [resourceKey, amount]}
 									{@const resource = resourceKey as Resource}
 									{@const info = resourceInfo[resource]}
 									<span
-										class={`flex items-center gap-2 px-2 py-1 ${info.tone}`}
+										class={`flex items-center py-1 ${info.tone}`}
 										role="img"
 										aria-label={`${amount} ${info.label}`}
 									>
-										<span class="flex items-center gap-1">
+										<span class="flex items-center">
 											{#each Array(amount) as _}
 												<span
-													class="resource-icon flex h-5 w-5 items-center justify-center rounded-full border-2"
+													class="resource-icon mx-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2"
 													style={`border-color: ${info.color}; background-color: ${info.color}`}
 													aria-hidden="true">{info.icon}</span
 												>
 											{/each}
 										</span>
-										<span>{info.label}</span>
+										<!-- <span>{info.label}</span> -->
 									</span>
-								{/each}
+								{/each}									
+								</div>
+
 							</div>
 						</div>
 					</div>

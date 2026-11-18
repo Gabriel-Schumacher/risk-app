@@ -28,7 +28,7 @@
 				},
                 {
 					title: 'Conversion & Religion Points',
-					text: "Upon a successful conversion, place one of your religion markers on the territory. You \\do not\\ need to roll to convert your own territory. \\+1 VP\\ for each of your own cities you convert. \\+1 VP\\ for converting a settlement of another player, and \\+2 VP\\ for converting a city of another player. If you convert another player\'s settlement, and they upgrade it to a city you gain \\+1 VP\\. So the \\+2 VP\\ is only for converting a city, not for upgrading a settlement to a city. If you convert another player\'s city, and they downgrade it to a settlement you gain \\+1 VP\\, totalling \\+2 VP\\ for that space."
+					text: "Upon a successful conversion, place one of your religion markers on the territory. You \\do not\\ need to roll to convert your own territory. \\+1 VP\\ for each of your own cities you convert. \\+1 VP\\ for converting a settlement of another player, and \\+2 VP\\ for converting a city of another player. If you convert another player\'s settlement, and they upgrade it to a city you gain \\+1 VP\\. So the \\+2 VP\\ is only for converting a city, not for upgrading a settlement to a city."
 				},
                 {
 					title: 'Converting already converted territories',

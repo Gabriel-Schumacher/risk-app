@@ -15,55 +15,51 @@ export const buildOrders: BuildOrder[] = [
 		title: 'Units',
 		details: [
 			{
-				title: '5 Troops',
-				text: 'Attack and defend territories. Place them on any territory you control.',
+				title: 'Production Building',
+				text: 'Adds +1 production to the resource type it is placed on (One per territory until you have unlocked Infrastructure).',
 				cost: {
 					cash: 40,
 					resources: {
+						wood: 1,
+						brick: 1
+					}
+				}
+			},
+			{
+				title: 'Settlement',
+				text: 'Adds +1 VP and can be be upgraded to a city. Comes with 4 troops in the territory built.',
+				cost: {
+					cash: 60,
+					resources: {
+						wood: 1,
+						brick: 1,
+						wheat: 1,
 						sheep: 1
 					}
 				}
 			},
 			{
-				title: 'Caravan',
-				text: 'Place them on any territory controled by another player with a production building. You may pay $20 to that player to gain 1 resource produced by that territory instead of your normal resource collection.',
+				title: 'City',
+				text: "Adds +1 VP and +1 production if you have a production building in the same territory. Comes with 4 troops in the territory built.",
 				cost: {
-					cash: 40,
+					cash: 80,
 					resources: {
-						wood: 3
+						wheat: 2,
+						ore: 3
 					}
 				}
 			},
 			{
-				title: 'Misionary',
-				text: "Must have Religion Level 2 unlocked. Allows you to convert other players' territories to your religion. Place them on any territory you control.",
+				title: 'Fort',
+				text: 'Allows the defender to roll one more die while defending. (When defending against cavalry roll 2 dice, +4 kill)',
 				cost: {
 					cash: 30,
 					resources: {
-						wheat: 1
+						wood: 1,
+						brick: 2
 					}
 				}
 			},
-			{
-				title: 'Artillery',
-				text: 'Can attack an adjacent territory once a turn. Roll 3 dice, 4+ kill 1 troop each. Artillery do not count as a troop for other battle purposes.',
-				cost: {
-					cash: 30,
-					resources: {
-						wheat: 1
-					}
-				}
-			},
-			{
-				title: 'Cavalry',
-				text: 'Can attack up to 3 territories away. Roll 3 dice, 4+ kill 1 troop each, 1 kills the cavalry. Cavalry do not count as troops for other battle purposes.',
-				cost: {
-					cash: 30,
-					resources: {
-						wheat: 1
-					}
-				}
-			}
 		]
 	}
 ];

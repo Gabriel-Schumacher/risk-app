@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { buildOrders } from '#lib/data/buildOrders.ts';
+	import { unitBuildOrders } from '#lib/data/unitBuildOrders.ts';
 	import { resourceInfo } from '#lib/data/icon.ts';
 
 	type Resource = keyof typeof resourceInfo;
 </script>
 
 <div class="flex flex-col gap-5">
-	{#each buildOrders as order}
+	{#each unitBuildOrders as order}
 		<section class="flex flex-col gap-3">
 			<h4 class="border-b border-[#d1ccbf] pb-2 text-lg font-bold">{order.title}</h4>
 			{#each order.details as detail}
@@ -35,7 +35,6 @@
 												>
 											{/each}
 										</span>
-										<span>{info.label}</span>
 									</span>
 								{/each}
 							</div>
