@@ -225,15 +225,17 @@
 							<span class="resource-label">{info.label}</span>
 						</div>
 						<div class="flex items-center gap-4">
-							<strong>{resources[resource]}</strong>
+							<strong class={`py-1 px-2 rounded-4xl border-2 border-[#ffffff00] ${resources[resource] !== 0 ? 'bg-white border-2 border-black' : ''}`}>
+								{resources[resource]}
+							</strong>
 							<div class="flex items-center gap-2">
 								<button
-									class="flex h-8 w-8 items-center justify-center border p-2"
+									class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
 									aria-label={`Remove one ${info.label}`}
 									onclick={() => changeResource(resource, -1)}>−</button
 								>
 								<button
-									class="flex h-8 w-8 items-center justify-center border p-2"
+									class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
 									aria-label={`Add one ${info.label}`}
 									onclick={() => changeResource(resource, 1)}>+</button
 								>
@@ -256,14 +258,14 @@
 								<strong class="flex-1">{tree.name}</strong>
 								<div class="flex items-center gap-2">
 									<button
-										class="flex h-8 w-8 items-center justify-center border p-2"
+										class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
 										aria-label={`Remove one ${tree.name} technology level`}
 										disabled={technologyProgress[tree.name] === 0}
 										onclick={() => changeTechnology(tree.name, -1)}>−</button
 									>
 									<strong class="tech-level">{technologyProgress[tree.name]} / 3</strong>
 									<button
-										class="flex h-8 w-8 items-center justify-center border p-2"
+										class="flex h-8 w-8 items-center justify-center border p-2 bg-white"
 										aria-label={`Add one ${tree.name} technology level`}
 										disabled={technologyProgress[tree.name] === 3}
 										onclick={() => changeTechnology(tree.name, 1)}>+</button
